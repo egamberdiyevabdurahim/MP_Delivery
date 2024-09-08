@@ -154,3 +154,19 @@ def get_all_products_query() -> list:
     params = (True,)
     result = execute_query(query, params, fetch='all')
     return result
+
+
+def search_product(product_id: int):
+    """
+    Search for product in the products table.
+    """
+    query = "SELECT * FROM products WHERE gmail id LIKE %s;"
+    result = execute_query(query, params=("%" + product_id + "%",), fetch="all")
+    if result:
+        print("products:")
+        for product in result:
+            print(f"""ID: {product[0]}, Name: {product[1]}, Price: {product[2]}, 
+                    Category ID: {product[3]}, Company ID: {product[4]}""")
+    else:
+        print("No products found.")
+    return None
