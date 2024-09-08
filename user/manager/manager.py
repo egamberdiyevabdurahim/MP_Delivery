@@ -8,7 +8,8 @@ from queries.for_company import (get_all_companies_query, get_company_from_id_qu
                                  get_company_from_manager_id_query)
 
 from queries.for_products import insert_product_query, get_all_products_query
-from queries.for_products import update_product_query
+from queries.for_products import update_product_query, delete_product_query
+from queries.for_products import search_product
 
 from queries.for_users import get_user_from_email_query
 
@@ -152,7 +153,7 @@ def update_product(email):
         user_data = get_user_from_email_query(email)
         manager_id = user_data['id']
         company_data = get_company_from_manager_id_query(manager_id)
-
+        
     update_product_query(product_id=product_id,category_id=category_id,name=product_name,
                          price=product_price, company_id=company_data['id'])
 
@@ -160,6 +161,25 @@ def update_product(email):
     return None
 
 
+def delete_product():
+    """
+    Delete a product from the products table.
+    """
+    product_id = int(input("Enter product ID: "))
+    delete_product_query(product_id=product_id)
+
+    print(f"Delete Successfully!")
+    return None
+
+
+def search_product_():
+    """
+    Search a product from the products table.
+    """
+    product_id = int(input("Enter product ID: "))
+    search_product(product_id=product_id)
+
+    return None
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
