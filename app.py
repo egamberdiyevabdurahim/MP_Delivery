@@ -1,6 +1,7 @@
 from queries.for_running import if_not_used
 
 from auth.login import login
+from auth.register import register
 
 
 
@@ -9,25 +10,25 @@ def after_login(email: str, status: str):
     Function to handle the after-login actions.
     """
     if status == "super":
-        pass
+        print("Welcome Super Admin!")
 
     elif status == "admin":
-        pass
+        print("Welcome Admin!")
 
     elif status == "user":
-        pass
+        print("Welcome User!")
 
     elif status == "courier":
-        pass
+        print("Welcome Courier!")
 
     elif status == "manager":
-        pass
+        print("Welcome Manager!")
 
     elif status == "employee":
-        pass
+        print("Welcome Employee!")
 
     elif status == "developer":
-        pass
+        print("Welcome Developer!")
 
 
 def main():
@@ -41,11 +42,15 @@ def main():
     choice = input("Enter your choice: ")
 
     if choice == '1':
-        email, status = login()
+        data = login()
+        if not data:
+            return main()
+        email, status = data
         after_login(email, status)
 
     elif choice == '2':
-        pass
+        email = register()
+        after_login(email, "user")
 
     elif choice == '3':
         print("Exiting...")

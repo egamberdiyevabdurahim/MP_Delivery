@@ -1,10 +1,8 @@
-from typing import Optional, Tuple
-
 from queries.for_users import get_user_from_email_query
 from queries.for_user_role import get_user_role_from_id_query
 
 
-def login() -> Optional[Tuple[str, str]]:
+def login():
     """
     Handles the login process for a user.
     """
@@ -21,7 +19,7 @@ def login() -> Optional[Tuple[str, str]]:
         return None
 
     if user_data['password'] != password:
-        print("Invalid email or password. Please try again.")
+        print("Invalid password. Please try again.")
         return None
 
     user_role_data = get_user_role_from_id_query(user_data['role_id'])

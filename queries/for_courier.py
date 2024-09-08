@@ -13,7 +13,7 @@ def create_courier_table_query() -> None:
         region_id INT NOT NULL,
         phone_number VARCHAR(64) UNIQUE NOT NULL,
         user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
-        price_for_delivering BIGINT NOT NULL,
+        price_for_delivering BIGINT,
         purse_id BIGINT REFERENCES purse(id) NOT NULL,
         created_at TIMESTAMPTZ DEFAULT NOW(),
         updated_at TIMESTAMPTZ DEFAULT NOW(),

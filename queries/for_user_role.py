@@ -26,8 +26,8 @@ def get_user_role_from_id_query(role_id: int) -> DictRow:
     Returns:
         DictRow: The retrieved role.
     """
-    query = f"SELECT * FROM user_role WHERE id = %s AND status = %s;"
-    params = (role_id, True)
+    query = f"SELECT * FROM user_role WHERE id = %s;"
+    params = (role_id,)
     result = execute_query(query, params, fetch='one')
     return result
 
@@ -42,8 +42,8 @@ def get_user_role_from_name_query(name: str) -> DictRow:
     Returns:
         DictRow: The retrieved role.
     """
-    query = f"SELECT * FROM user_role WHERE name = %s AND status = %s;"
-    params = (name, True)
+    query = f"SELECT * FROM user_role WHERE name = %s;"
+    params = (name,)
     result = execute_query(query, params, fetch='one')
     return result
 
@@ -75,8 +75,8 @@ def update_user_role_query(role_id: int, name: str) -> None:
     Returns:
         None.
     """
-    query = "UPDATE user_role SET name = %s WHERE id = %s AND status = %s;"
-    params = (name, role_id, True)
+    query = "UPDATE user_role SET name = %s WHERE id = %s;"
+    params = (name, role_id)
     execute_query(query, params)
     return None
 
@@ -91,8 +91,8 @@ def delete_user_role_query(role_id: int) -> None:
     Returns:
         None.
     """
-    query = "UPDATE user_role SET status = %s WHERE id = %s;"
-    params = (False, role_id)
+    query = "DELETE FROM user_role WHERE id = %s"
+    params = (role_id,)
     execute_query(query, params)
     return None
 
@@ -104,7 +104,6 @@ def get_all_user_roles_query() -> list:
     Returns:
         List[DictRow]: The retrieved roles.
     """
-    query = "SELECT * FROM user_role WHERE status = %s;"
-    params = (True,)
-    result = execute_query(query, params, fetch='all')
+    query = "SELECT * FROM user_role;"
+    result = execute_query(query, fetch='all')
     return result
