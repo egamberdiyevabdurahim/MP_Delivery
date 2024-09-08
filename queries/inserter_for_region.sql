@@ -1,0 +1,12 @@
+insert into regions (name) values ('Andijon');
+insert into regions (name) values ('Buxoro');
+insert into regions (name) values ('Fargʻona');
+insert into regions (name) values ('Jizzax');
+insert into regions (name) values ('Xorazm');
+insert into regions (name) values ('Namangan');
+insert into regions (name) values ('Navoiy');
+insert into regions (name) values ('Qashqadaryo');
+insert into regions (name) values ('Samarqand');
+insert into regions (name) values ('Sirdaryo');
+insert into regions (name) values ('Surxondaryo');
+insert into regions (name) values ('Toshkent');
