@@ -8,6 +8,7 @@ from queries.for_company import (get_all_companies_query, get_company_from_id_qu
                                  get_company_from_manager_id_query)
 
 from queries.for_products import insert_product_query, get_all_products_query
+from queries.for_products import update_product_query
 
 from queries.for_users import get_user_from_email_query
 
@@ -115,7 +116,7 @@ def add_product(email):
     return None
 
 
-def show_products():
+def show_products(email):
     """
     Show all products in the products table.
     """
@@ -127,6 +128,35 @@ def show_products():
                     Category ID: {product[3]}, Company ID: {product[4]}""")
     else:
         print("No products found.")
+    return None
+
+
+def update_product(email):
+
+    """
+    Update the name and price of a product in the products table.
+    """
+    product_id = int(input("Enter product Id: "))
+    product_name = input("Enter new product name: ")
+    product_price = input("Enter new product price: ")
+    category_data = get_all_categories_query()
+    for category in category_data:
+        print(f"{category['id']}. {category['name']}")
+
+        category_id: int = int(input("Enter your new category ID: "))
+        # Check if the category exists
+        while not get_category_from_id_query(category_id):
+            print("Invalid category ID!")
+            category_id = int(input("Re-Enter your new category ID: "))
+        
+        user_data = get_user_from_email_query(email)
+        manager_id = user_data['id']
+        company_data = get_company_from_manager_id_query(manager_id)
+
+    update_product_query(product_id=product_id,category_id=category_id,name=product_name,
+                         price=product_price, company_id=company_data['id'])
+
+    print(f"Update Successfully!")
     return None
 
 
