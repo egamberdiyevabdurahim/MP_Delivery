@@ -8,6 +8,27 @@ from queries.for_employee import insert_employee_query
 from utils import additions
 
 
+# def create_courier(user_id: int):
+#     """
+#     Inserts a new courier into the database.
+#     """
+#     phone_number: str = input("Enter your phone number: ")
+#     # Check if the phone number is unique
+#     while not phone_number.startswith(additions.phone_number_details):
+#         print("Invalid phone number format. Please use the following format: +7 (XXX) XXX-XX-XX")
+#         phone_number = input("Re-Enter your phone number: ")
+#
+#     region_id: int = int(input("Enter your region ID: "))
+#     # Check if the region exists
+#     while not get_region_from_id_query(region_id):
+#         print("Invalid region ID!")
+#         region_id = int(input("Re-Enter your region ID: "))
+#
+#     purse_id: int = int(input("Enter your purse ID: "))
+#     # Check if the purse exists
+#     while not get_purse_from_id_
+
+
 def register():
     """
     Handles the registration process for a new user.
@@ -58,13 +79,7 @@ def register():
     # Create a new user in the database
     insert_user_query(email=email, password=password, role_id=int(role_id), first_name=first_name, last_name=last_name)
 
-    if role_data['name'] == "manager":
-        pass
-
-    elif role_data['name'] == "admin":
-        pass
-
-    elif role_data['name'] == "courier":
+    if role_data['name'] == "courier":
         pass
 
     elif role_data['name'] == "employee":

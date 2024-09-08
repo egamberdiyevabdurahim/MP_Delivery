@@ -10,11 +10,11 @@ def create_courier_table_query() -> None:
     execute_query("""
     CREATE TABLE IF NOT EXISTS courier (
         id BIGSERIAL PRIMARY KEY,
-        region_id INT(64) NOT NULL,
+        region_id INT NOT NULL,
         phone_number VARCHAR(64) UNIQUE NOT NULL,
         user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
         price_for_delivering BIGINT NOT NULL,
-        purse_id BIGINT REFERENCES purse(id) NOT NULL
+        purse_id BIGINT REFERENCES purse(id) NOT NULL,
         created_at TIMESTAMPTZ DEFAULT NOW(),
         updated_at TIMESTAMPTZ DEFAULT NOW(),
         status BOOLEAN DEFAULT TRUE

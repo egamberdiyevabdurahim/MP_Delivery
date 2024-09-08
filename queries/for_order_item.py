@@ -10,7 +10,7 @@ def create_order_item_table_query() -> None:
     execute_query("""
     CREATE TABLE IF NOT EXISTS order_item (
         id BIGSERIAL PRIMARY KEY,
-        order_id BIGINT REFERENCES order(id) NOT NULL,
+        order_id BIGINT REFERENCES orders(id) NOT NULL,
         name VARCHAR(64) NOT NULL,
         quantity INT NOT NULL,
         price DECIMAL(10, 2) NOT NULL,

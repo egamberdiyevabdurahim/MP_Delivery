@@ -14,8 +14,8 @@ def create_products_table_query() -> None:
         name VARCHAR(255) NOT NULL,
         price BIGINT NOT NULL,
         company_id BIGINT REFERENCES company(id) NOT NULL,
-        created_at TIMESTAMPT DEFAULT NOW(),
-        updated_at TIMESTAMPT DEFAULT NOW(),
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW(),
         status BOOLEAN DEFAULT TRUE
     );
     """)
