@@ -2,21 +2,21 @@ import os
 
 from database_config.db_settings import execute_query
 
-from for_purse import create_purse_table_query
-from for_regions import create_regions_table_query
-from for_user_role import create_user_role_table_query
-from for_users import create_users_table_query
-from for_courier import create_courier_table_query
-from for_promocode import create_promocode_table_query
-from for_company import create_company_table_query
-from for_branch import create_branch_table_query
-from for_employee import create_employee_table_query
-from for_category import create_category_table_query
-from for_products import create_products_table_query
-from for_basket import create_basket_table_query
-from for_basket_item import create_basket_item_table_query
-from for_order import create_order_table_query
-from for_order_item import create_order_item_table_query
+from .for_purse import create_purse_table_query
+from .for_regions import create_regions_table_query
+from .for_user_role import create_user_role_table_query
+from .for_users import create_users_table_query
+from .for_courier import create_courier_table_query
+from .for_promocode import create_promocode_table_query
+from .for_company import create_company_table_query
+from .for_branch import create_branch_table_query
+from .for_employee import create_employee_table_query
+from .for_category import create_category_table_query
+from .for_products import create_products_table_query
+from .for_basket import create_basket_table_query
+from .for_basket_item import create_basket_item_table_query
+from .for_order import create_order_table_query
+from .for_order_item import create_order_item_table_query
 
 def create_is_used_table_query() -> None:
     """

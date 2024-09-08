@@ -2,7 +2,6 @@ from queries.for_running import if_not_used
 
 from auth.login import login
 
-from user.super_admin.super_admin_menu import statistics_menu
 
 
 def after_login(email: str, status: str):
