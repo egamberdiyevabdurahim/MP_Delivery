@@ -7,7 +7,7 @@ from queries.for_category import get_all_categories_query, get_category_from_id_
 from queries.for_company import (get_all_companies_query, get_company_from_id_query,
                                  get_company_from_manager_id_query)
 
-from queries.for_products import insert_product_query
+from queries.for_products import insert_product_query, get_all_products_query
 
 from queries.for_users import get_user_from_email_query
 
@@ -15,7 +15,7 @@ from queries.for_users import get_user_from_email_query
 def menu(role, email):
     print(""""
     1. Create
-    2. see all
+    2. See all
     3. Update
     4. Search
     5. Delete
@@ -25,8 +25,7 @@ def menu(role, email):
     user_input = input("Enter your choice: ")
     if user_input == '1':
         if role == "Product":
-           if None ==  add_product():
-               pass
+            add_product(email=email)
         elif role == "Branch":
             pass
         else:
@@ -63,7 +62,7 @@ def menu(role, email):
         manager_menu()
     else:
         print("Invalid choice. Please try again")
-        return menu()
+    return menu(role=role, email=email)
     
 
 def manager_menu(email):
@@ -112,8 +111,25 @@ def add_product(email):
         company_data = get_company_from_manager_id_query(manager_id)
 
     insert_product_query(category_id=category_id,name=product_name,price=product_price, company_id=company_data['id'])
-    print(f"\nCreated Successfully!")
+    print(f"\nCreated Successfully!") 
+    return None
+
+
+def show_products():
+    """
+    Show all products in the products table.
+    """
+    result = get_all_products_query()
+    if result:
+        print("Products:")
+        for product in result:
+            print(f"""ID: {product[0]}, Name: {product[1]}, Price: {product[2]}, 
+                    Category ID: {product[3]}, Company ID: {product[4]}""")
+    else:
+        print("No products found.")
     return None
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
