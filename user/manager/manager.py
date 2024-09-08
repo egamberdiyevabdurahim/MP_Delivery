@@ -1,4 +1,72 @@
-def manager_menu():
+import threading
+import hashlib
+
+
+from queries.for_category import get_all_categories_query, get_category_from_id_query
+
+from queries.for_company import (get_all_companies_query, get_company_from_id_query,
+                                 get_company_from_manager_id_query)
+
+from queries.for_products import insert_product_query
+
+from queries.for_users import get_user_from_email_query
+
+
+def menu(role, email):
+    print(""""
+    1. Create
+    2. see all
+    3. Update
+    4. Search
+    5. Delete
+    6. Logout
+    """)
+
+    user_input = input("Enter your choice: ")
+    if user_input == '1':
+        if role == "Product":
+           if None ==  add_product():
+               pass
+        elif role == "Branch":
+            pass
+        else:
+            pass
+    elif user_input == '2':
+        if role == "Product":
+            pass
+        elif role == "Branch":
+            pass
+        else:
+            pass
+    elif user_input == '3':
+        if role == "Product":
+            pass
+        elif role == "Branch":
+            pass
+        else:
+            pass
+    elif user_input == '4':
+        if role == "Product":
+            pass
+        elif role == "Branch":
+            pass
+        else:
+            pass
+    elif user_input == '5':
+        if role == "Product":
+            pass
+        elif role == "Branch":
+            pass
+        else:
+            pass
+    elif user_input == '6':
+        manager_menu()
+    else:
+        print("Invalid choice. Please try again")
+        return menu()
+    
+
+def manager_menu(email):
     print("""
 1. Product management(CRUD)
 2. Branch management(CRUD)
@@ -7,13 +75,45 @@ def manager_menu():
 """)
     user_input = input("Enter your choice: ")
     if user_input == '1':
-        pass
+        menu(role="Product")
     elif user_input == '2':
-        pass
+        menu(role="Branch")
     elif user_input == '3':
-        pass
+        menu(role="Employee")
     elif user_input == '4':
         pass
     else:
         print("Invalid choice. Please try again")
         return manager_menu()
+    
+                                
+                                            #Products functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+def add_product(email):
+    """
+    Add a new product to the products table.
+    """
+    product_name = input("Enter product name: ").strip()
+    product_price = input("Enter product price: ").strip()
+    category_data = get_all_categories_query()
+    for category in category_data:
+        print(f"{category['id']}. {category['name']}")
+
+        category_id: int = int(input("Enter your category ID: "))
+        # Check if the category exists
+        while not get_category_from_id_query(category_id):
+            print("Invalid category ID!")
+            category_id = int(input("Re-Enter your category ID: "))
+        
+        user_data = get_user_from_email_query(email)
+        manager_id = user_data['id']
+        company_data = get_company_from_manager_id_query(manager_id)
+
+    insert_product_query(category_id=category_id,name=product_name,price=product_price, company_id=company_data['id'])
+    print(f"\nCreated Successfully!")
+    return None
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
