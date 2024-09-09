@@ -93,4 +93,4 @@ def admin_menu(email: str):
     else:
         print("Invalid choice. Please try again.")
 
-    return admin_menu()
+    return admin_menu(email)
