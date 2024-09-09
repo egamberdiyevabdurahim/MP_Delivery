@@ -1,6 +1,3 @@
-import threading
-import hashlib
-
 from queries.for_category import get_all_categories_query, get_category_from_id_query
 
 from queries.for_company import (get_all_companies_query, get_company_from_id_query,
@@ -68,7 +65,7 @@ def menu(role, email):
         else:
             pass
     elif user_input == '6':
-        manager_menu()
+        manager_menu(email)
     else:
         print("Invalid choice. Please try again")
     return menu(role=role, email=email)
@@ -92,7 +89,7 @@ def manager_menu(email):
         pass
     else:
         print("Invalid choice. Please try again")
-        return manager_menu()
+        return manager_menu(email)
     
                                 
                                             #Product functions
@@ -109,17 +106,17 @@ def add_product(email):
     for category in category_data:
         print(f"{category['id']}. {category['name']}")
 
-        category_id: int = int(input("Enter your category ID: "))
+        category_id: str = input("Enter your category ID: ")
         # Check if the category exists
-        while not get_category_from_id_query(category_id):
+        while not get_category_from_id_query(int(category_id)):
             print("Invalid category ID!")
-            category_id = int(input("Re-Enter your category ID: "))
+            category_id = input("Re-Enter your category ID: ")
         
         user_data = get_user_from_email_query(email)
         manager_id = user_data['id']
         company_data = get_company_from_manager_id_query(manager_id)
 
-    insert_product_query(category_id=category_id,name=product_name,price=product_price, company_id=company_data['id'])
+    insert_product_query(category_id=int(category_id), name=product_name, price=int(product_price), company_id=company_data['id'])
     print(f"\nCreated Successfully!") 
     return None
 
@@ -162,7 +159,7 @@ def update_product(email):
         company_data = get_company_from_manager_id_query(manager_id)
         
     update_product_query(product_id=product_id,category_id=category_id,name=product_name,
-                         price=product_price, company_id=company_data['id'])
+                         price=int(product_price), company_id=company_data['id'])
 
     print(f"Update Successfully!")
     return None

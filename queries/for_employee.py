@@ -54,6 +54,22 @@ def get_employee_from_phone_number_query(phone_number: str) -> DictRow:
     return result
 
 
+def get_employee_from_user_id(user_id: int):
+    """
+    Retrieves employees associated with a user from the database.
+
+    Args:
+        user_id (int): The ID of the user.
+
+    Returns:
+        list: The retrieved employees.
+    """
+    query = "SELECT * FROM employee WHERE user_id = %s AND status = %s;"
+    params = (user_id, True)
+    result = execute_query(query, params, fetch='all')
+    return result
+
+
 def get_employees_from_branch_id_query(branch_id: int) -> list:
     """
     Retrieves employees associated with a branch from the database.
