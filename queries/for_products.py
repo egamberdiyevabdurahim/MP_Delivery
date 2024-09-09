@@ -160,8 +160,8 @@ def search_product(product_id: int):
     """
     Search for product in the products table.
     """
-    query = "SELECT * FROM products WHERE gmail id LIKE %s;"
-    result = execute_query(query, params=("%" + product_id + "%",), fetch="all")
+    query = f"SELECT * FROM products WHERE gmail id LIKE '%{product_id}%;"
+    result = execute_query(query, fetch="all")
     if result:
         print("products:")
         for product in result:
