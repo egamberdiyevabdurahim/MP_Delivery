@@ -128,3 +128,19 @@ def get_all_branches_query() -> list:
     params = (True,)
     result = execute_query(query, params, fetch='all')
     return result
+
+
+def search_branch(branch_id: int):
+    """
+    Search for branch in the branchs table.
+    """
+    query = "SELECT * FROM branch WHERE id LIKE %s;"
+    result = execute_query(query, params=("%" + branch_id + "%",), fetch="all")
+    if result:
+        print("branch:")
+        for branch in result:
+            print(f"""ID: {branch[0]}, ID name: {branch[1]}, Company ID: {branch[2]}, 
+                    Status: {branch[3]}, Created at: {branch[4]}""")
+    else:
+        print("No branch found.")
+    return None

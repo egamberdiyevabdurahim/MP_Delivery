@@ -148,3 +148,19 @@ def get_all_employees_query() -> None:
     params = (True,)
     result = execute_query(query, params, fetch='all')
     return result
+
+
+def search_employee(employee_id: int):
+    """
+    Search for employee in the employee table.
+    """
+    query = "SELECT * FROM employee WHERE id LIKE %s;"
+    result = execute_query(query, params=("%" + employee_id + "%",), fetch="all")
+    if result:
+        print("employee:")
+        for employee in result:
+            print(f"""ID: {employee[0]}, User ID: {employee[1]}, Banch ID: {employee[2]}, 
+                    Phone_number: {employee[3]}, Region ID: {employee[4]}""")
+    else:
+        print("No employee found.")
+    return None

@@ -65,7 +65,7 @@ def get_company_from_manager_id_query(manager_id: int) -> list:
     """
     query = "SELECT * FROM company WHERE manager_id = %s AND status = %s;"
     params = (manager_id, True)
-    result = execute_query(query, params, fetch='all')
+    result = execute_query(query, params, fetch='one')
     return result
 
 

@@ -1,7 +1,6 @@
 import threading
 import hashlib
 
-
 from queries.for_category import get_all_categories_query, get_category_from_id_query
 
 from queries.for_company import (get_all_companies_query, get_company_from_id_query,
@@ -10,6 +9,14 @@ from queries.for_company import (get_all_companies_query, get_company_from_id_qu
 from queries.for_products import insert_product_query, get_all_products_query
 from queries.for_products import update_product_query, delete_product_query
 from queries.for_products import search_product
+
+from queries.for_branch import insert_branch_query, get_all_branches_query
+from queries.for_branch import update_branch_query, delete_branch_query
+from queries.for_branch import search_branch
+
+from queries.for_employee import insert_employee_query, get_all_employees_query
+from queries.for_employee import update_employee_query, delete_employee_query
+from queries.for_employee import search_employee
 
 from queries.for_users import get_user_from_email_query
 
@@ -34,28 +41,28 @@ def menu(role, email):
             pass
     elif user_input == '2':
         if role == "Product":
-            pass
+            show_products()
         elif role == "Branch":
             pass
         else:
             pass
     elif user_input == '3':
         if role == "Product":
-            pass
+            update_product(email=email)
         elif role == "Branch":
             pass
         else:
             pass
     elif user_input == '4':
         if role == "Product":
-            pass
+            search_product_()
         elif role == "Branch":
             pass
         else:
             pass
     elif user_input == '5':
         if role == "Product":
-            pass
+            delete_product()
         elif role == "Branch":
             pass
         else:
@@ -76,11 +83,11 @@ def manager_menu(email):
 """)
     user_input = input("Enter your choice: ")
     if user_input == '1':
-        menu(role="Product")
+        menu(role="Product", email=email)
     elif user_input == '2':
-        menu(role="Branch")
+        menu(role="Branch", email=email)
     elif user_input == '3':
-        menu(role="Employee")
+        menu(role="Employee", email=email)
     elif user_input == '4':
         pass
     else:
@@ -88,7 +95,7 @@ def manager_menu(email):
         return manager_menu()
     
                                 
-                                            #Products functions
+                                            #Product functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -117,7 +124,7 @@ def add_product(email):
     return None
 
 
-def show_products(email):
+def show_products():
     """
     Show all products in the products table.
     """
@@ -172,7 +179,7 @@ def delete_product():
     return None
 
 
-def search_product_():
+def search_product_(l):
     """
     Search a product from the products table.
     """
@@ -181,5 +188,149 @@ def search_product_():
 
     return None
 
-
+                                            #Brach functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+                
+
+def add_branch(email):
+    """
+    Add a new branch to the branchs table.
+    """
+    id_name = input("Enter should branch ID name: ").strip()
+        
+    user_data = get_user_from_email_query(email)
+    manager_id = user_data['id']
+    company_data = get_company_from_manager_id_query(manager_id)
+
+    insert_branch_query(id_name=id_name, company_id=company_data['id'])
+    print(f"\nCreated Successfully!") 
+    return None
+
+
+def show_branchs():
+    """
+    Show all branchs in the branchs table.
+    """
+    result = get_all_branches_query()
+    if result:
+        print("branch:")
+        for branch in result:
+            print(f"""ID: {branch[0]}, ID name: {branch[1]}, Company ID: {branch[2]}, 
+                    Status: {branch[3]}, Created at: {branch[4]}""")
+    else:
+        print("No branchs found.")
+    return None
+
+
+def update_branch(email):
+
+    """
+    Update the company_id and id_name of a branch in the branch table.
+    """
+    branch_id = int(input("Enter branch Id: "))
+    id_name = input("Enter should branch ID name: ").strip()
+        
+    user_data = get_user_from_email_query(email)
+    manager_id = user_data['id']
+    company_data = get_company_from_manager_id_query(manager_id)
+        
+    update_branch_query(branch_id=branch_id,id_name=id_name,company_id=company_data['id'])
+
+    print(f"Update Successfully!")
+    return None
+
+
+def delete_branch():
+    """
+    Delete a branch from the branch table.
+    """
+    branch_id = int(input("Enter branhc ID: "))
+
+    delete_branch_query(branch_id=branch_id)
+
+    print(f"Delete Successfully!")
+    return None
+
+
+def search_branch_():
+    """
+    Search a branch from the branch table.
+    """
+    branch_id = int(input("Enter branch ID: "))
+    search_branch(branch_id=branch_id)
+
+    return None
+
+
+                                            #Employee functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+                
+
+def add_employee(email):
+    """
+    Add a new employee to the employee table.
+    """
+    id_name = input("Enter should branch ID name: ").strip()
+        
+    user_data = get_user_from_email_query(email)
+    manager_id = user_data['id']
+    company_data = get_company_from_manager_id_query(manager_id)
+
+    insert_employee_query(id_name=id_name, company_id=company_data['id'])
+    print(f"\nCreated Successfully!") 
+    return None
+
+
+def show_employees():
+    """
+    Show all employees in the employee table.
+    """
+    result = get_all_employees_query()
+    if result:
+        print("branch:")
+        for branch in result:
+            print(f"""ID: {branch[0]}, ID name: {branch[1]}, Company ID: {branch[2]}, 
+                    Status: {branch[3]}, Created at: {branch[4]}""")
+    else:
+        print("No branchs found.")
+    return None
+
+
+def update_employee(email):
+
+    """
+    Update the company_id and id_name of a employee in the branch table.
+    """
+    branch_id = int(input("Enter branch Id: "))
+    id_name = input("Enter should branch ID name: ").strip()
+        
+    user_data = get_user_from_email_query(email)
+    manager_id = user_data['id']
+    company_data = get_company_from_manager_id_query(manager_id)
+        
+    update_employee_query(branch_id=branch_id,id_name=id_name,company_id=company_data['id'])
+
+    print(f"Update Successfully!")
+    return None
+
+
+def delete_employee():
+    """
+    Delete a branch from the branch table.
+    """
+    branch_id = int(input("Enter branhc ID: "))
+
+    delete_employee_query(branch_id=branch_id)
+
+    print(f"Delete Successfully!")
+    return None
+
+
+def search_employee_():
+    """
+    Search a employee from the branch table.
+    """
+    branch_id = int(input("Enter branch ID: "))
+    search_employee_(branch_id=branch_id)
+
+    return None
