@@ -1,3 +1,4 @@
+from auth.register import register
 from queries.for_category import get_all_categories_query, get_category_from_id_query
 
 from queries.for_company import (get_all_companies_query, get_company_from_id_query,
@@ -15,7 +16,11 @@ from queries.for_employee import insert_employee_query, get_all_employees_query
 from queries.for_employee import update_employee_query, delete_employee_query
 from queries.for_employee import search_employee
 
-from queries.for_users import get_user_from_email_query
+from queries.for_regions import get_all_regions_query, get_region_from_id_query
+from queries.for_user_role import get_user_role_from_name_query
+from queries.for_users import get_user_from_email_query, update_user_query
+
+from utils.additions import phone_details
 
 
 def menu(role, email):
@@ -261,20 +266,68 @@ def search_branch_():
 
                                             #Employee functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-                
+
+def add_employee_to_branch()
+
+
+def create_employee(email: str = None):
+    """
+    Creates a new employee user with default role 'employee'.
+    """
+    if email is None:
+        email = input("Enter Employee's Email: ")
+
+    user = get_user_from_email_query(email)
+    if not user:
+        print("Invalid Email\n"
+              "Please try again")
+
+    elif user['role_id'] == get_user_role_from_name_query('employee')['id']:
+        print(f"{user['first_name']} {user['last_name']}'s role is already Employee!")
+        return None
+
+    else:
+        role = get_user_role_from_name_query('employee')
+        phone_number = input("Enter employee's phone number: ")
+        while not phone_number.startswith(phone_details):
+            print("Invalid Phone Number!\n"
+                  "Use This Example; 991234567")
+            phone_number = input("Re-Enter employee's phone number: ")
+        regions_data = get_all_regions_query()
+        for region in regions_data:
+            print(f"{region['id']}. {region['name']}")
+    
+        region_id = input("Enter your region ID: ")
+        # Check if the region exists
+        while not get_region_from_id_query(int(region_id)):
+            print("Invalid region ID!")
+            region_id = input("Re-Enter your region ID: ")
+
+        update_user_query(email=user['email'], password=user['password'], first_name=user['first_name'],
+                          last_name=user['last_name'], role_id=role['id'], user_id=user['id'])
+        
+        insert_employee_query(user_id=user['id'], region_id=region_id, phone_number=phone_number)
+        print(f"{user['first_name']} {user['last_name']}'s role Changed to Employee!")
+        
+        print("Do You Want ")
+        return None
+
+    return create_employee()
+
 
 def add_employee(email):
     """
     Add a new employee to the employee table.
     """
-    id_name = input("Enter should branch ID name: ").strip()
-        
-    user_data = get_user_from_email_query(email)
-    manager_id = user_data['id']
-    company_data = get_company_from_manager_id_query(manager_id)
+    print("Is Employee Registered to MP Delivery If Not Registered Enter y else Enter n")
+    is_created = input("Enter(y/n): ").strip() == 'y'
+    if is_created:
+        create_employee()
 
-    insert_employee_query(id_name=id_name, company_id=company_data['id'])
-    print(f"\nCreated Successfully!") 
+    else:
+        email = register()
+        create_employee(email)
+
     return None
 
 
