@@ -3,6 +3,8 @@ from queries.for_running import if_not_used
 from auth.login import login
 from auth.register import register
 
+from user.super_admin.super_admin_menu import super_admin_menu
+
 
 
 def after_login(email: str, status: str):
@@ -11,6 +13,7 @@ def after_login(email: str, status: str):
     """
     if status == "super":
         print("Welcome Super Admin!")
+        return super_admin_menu()
 
     elif status == "admin":
         print("Welcome Admin!")

@@ -121,3 +121,19 @@ def get_all_users_query() -> list:
     params = (True,)
     result = execute_query(query, params, fetch='all')
     return result
+
+
+def get_users_by_role_query(role_id: int) -> list:
+    """
+    Creates a query for retrieving users by their role ID from the database.
+
+    Args:
+        role_id (int): The ID of the user's role.
+
+    Returns:
+        List[DictRow]: The retrieved users.
+    """
+    query = "SELECT * FROM users WHERE role_id = %s AND status = %s;"
+    params = (role_id, True)
+    result = execute_query(query, params, fetch='all')
+    return result
